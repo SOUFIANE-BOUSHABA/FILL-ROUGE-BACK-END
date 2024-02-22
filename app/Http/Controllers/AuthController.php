@@ -28,22 +28,28 @@ class AuthController extends Controller
                 'message' => 'Invalid credentials!'
             ], Response::HTTP_UNAUTHORIZED);
         }
-
+    
         $user = Auth::user();
-
+    
         $token = $user->createToken('token')->plainTextToken;
-
-        $cookie = cookie('jwt', $token, 60 * 24); 
-
-        return response([
-            'message' => $token
-        ])->withCookie($cookie);
+        $cookie = cookie('jwt', $token, 60 * 24);
+        return response(['message' => $token])->withCookie($cookie);
     }
 
-    public function user()
-    {
-        return Auth::user();
+   public function user()
+{
+    $user = Auth::user();
+
+    if ($user) {
+        return response()->json([
+            'user' => $user,
+        ], Response::HTTP_OK);
+    } else { 
+        return response()->json([
+            'message' => 'Not logged in',
+        ], Response::HTTP_UNAUTHORIZED);
     }
+}
 
     public function logout()
     {
