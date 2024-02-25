@@ -75,4 +75,9 @@ class AuthController extends Controller
             'message' => 'Logged out successfully'
         ], Response::HTTP_OK);
     }
+
+
+
 }
+
+
