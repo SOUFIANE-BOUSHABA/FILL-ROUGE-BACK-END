@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,4 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Routes for RoleController
     Route::get('roles', [RoleController::class, 'index']);
+
+
+    // Routes for TopicController
+    Route::post('/topics', [TopicController::class, 'storeTopic']);
 });  
