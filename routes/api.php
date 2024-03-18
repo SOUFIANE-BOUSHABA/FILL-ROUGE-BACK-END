@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -42,4 +43,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Routes for UserController
     Route::get('users', [UserController::class, 'index']);
     Route::post('users/{id}/block', [UserController::class, 'blockUser']);
+    Route::put('users/{id}/role', [UserController::class, 'updateUserRole']);
+
+    // Routes for RoleController
+    Route::get('roles', [RoleController::class, 'index']);
 });  
