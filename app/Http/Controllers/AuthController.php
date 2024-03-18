@@ -37,6 +37,14 @@ class AuthController extends Controller
         }
     
         $user = Auth::user();
+        
+        if ($user->is_blocked) {
+            Auth::logout();
+            return response()->json([
+                'message' => 'User is blocked. Cannot login.'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
         $userRole = $user->role; 
         $token = $user->createToken('token')->plainTextToken;
     

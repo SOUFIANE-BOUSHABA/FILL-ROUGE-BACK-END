@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,8 @@ Route::middleware('auth:sanctum')->group(function () {
      Route::get('tags/{id}', [TagController::class, 'show']);
      Route::put('tags/{id}', [TagController::class, 'update']);
      Route::delete('tags/{id}', [TagController::class, 'destroy']);
+
+    // Routes for UserController
+    Route::get('users', [UserController::class, 'index']);
+    Route::post('users/{id}/block', [UserController::class, 'blockUser']);
 });  
