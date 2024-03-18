@@ -21,6 +21,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar')->nullable();
+            $table->boolean('is_blocked')->default(false);
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->string('url_pay_me_coffee')->nullable();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
         });

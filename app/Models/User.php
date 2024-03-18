@@ -22,7 +22,11 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'is_blocked',
+        'role_id',
+        'url_pay_me_coffee',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,8 +47,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class);
     }
 }

@@ -18,54 +18,53 @@ class AuthController extends Controller
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
+            'password' => Hash::make($request->input('password')),
+            'role_id' => 2,
         ]);
 
      
-        $userRole = Role::where('name', 'user')->first(); 
-        if ($userRole) {
-            $user->roles()->attach($userRole);
-        }
+      
 
         return $user;
     }
 
-   public function login(Request $request)
-   {
-    if (!Auth::attempt($request->only('email', 'password'))) {
+    public function login(Request $request)
+    {
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
+                'message' => 'Invalid credentials!'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+    
+        $user = Auth::user();
+        $userRole = $user->role; 
+        $token = $user->createToken('token')->plainTextToken;
+    
         return response()->json([
-            'message' => 'Invalid credentials!'
-        ], Response::HTTP_UNAUTHORIZED);
+            'user' => $user,
+            'role' => $userRole, 
+            'token' => $token,
+            'message' => 'Login successful'
+        ], Response::HTTP_OK);
     }
-
-    $user = Auth::user();
-    $userRole = $user->roles()->first(); 
-    $token = $user->createToken('token')->plainTextToken;
-
-    return response()->json([
-        'user' => $user,
-        'role' => $userRole, 
-        'token' => $token,
-        'message' => 'Login successful'
-    ], Response::HTTP_OK);
-    }
-
+    
     public function user()
     {
-        if( $user = Auth::user()){
-            $userRole = $user->roles()->first(); 
+        $user = Auth::user();
+    
+        if ($user) {
+            $userRole = $user->role; 
             return response()->json([
-                'user' => Auth::user(),
-                'role'=> $userRole
+                'user' => $user,
+                'role' => $userRole, 
             ], Response::HTTP_OK);
-        }else{
+        } else {
             return response()->json([
                 'message' => 'User not found'
             ], Response::HTTP_NOT_FOUND);
-        
         }
-       
     }
+    
 
     public function logout(Request $request)
     {
