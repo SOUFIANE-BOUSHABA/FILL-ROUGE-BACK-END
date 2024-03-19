@@ -52,4 +52,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Routes for TopicController
     Route::post('/topics', [TopicController::class, 'storeTopic']);
+    Route::get('/topics', [TopicController::class, 'index']);
+    Route::get('/getTopicById/{id}', [TopicController::class, 'getTopicById']);
+    Route::delete('/topics/{id}', [TopicController::class, 'destroy']);
+    Route::post('/topics/{id}', [TopicController::class, 'update']);
+    
 });  
