@@ -31,4 +31,9 @@ class Topic extends Model
     {
         return $this->belongsToMany(Tag::class ,  'topic_tags' , 'topic_id' , 'tag_id');
     }
+
+    public function topicVotes()
+    {
+        return $this->hasMany(TopicVote::class);
+    }
 }

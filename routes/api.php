@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VotetopicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,5 +57,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getTopicById/{id}', [TopicController::class, 'getTopicById']);
     Route::delete('/topics/{id}', [TopicController::class, 'destroy']);
     Route::post('/topics/{id}', [TopicController::class, 'update']);
+
+    // Routes for VotetopicController
+    Route::post('/voteTopic', [VotetopicController::class, 'voteTopic']);
     
 });  

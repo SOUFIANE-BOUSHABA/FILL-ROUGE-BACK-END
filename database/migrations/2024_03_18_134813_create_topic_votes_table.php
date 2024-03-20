@@ -17,6 +17,7 @@ class CreateTopicVotesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('topic_id');
+            $table->tinyInteger('value')->comment('+1 or -1');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->timestamps();
