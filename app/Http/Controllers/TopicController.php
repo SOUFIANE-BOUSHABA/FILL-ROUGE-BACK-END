@@ -11,13 +11,19 @@ class TopicController extends Controller
 {
     public function index()
     {
-        $id= auth()->user()->id;
-       $data = Topic::with('category', 'tags' , 'user')->get();
-       return response()->json([
-              'topics' => $data,
-              'user_id' => $id
-       ]);
+        $id = auth()->user()->id;
+        $data = Topic::with('tags', 'user', 'topicVotes')->get();
+        
+        $data->each(function ($topic) {
+            $topic->total_votes = $topic->topicVotes->sum('value');
+        });
+    
+        return response()->json([
+            'topics' => $data,
+            'user_id' => $id
+        ]);
     }
+    
 
     public function storeTopic(Request $request)
     {

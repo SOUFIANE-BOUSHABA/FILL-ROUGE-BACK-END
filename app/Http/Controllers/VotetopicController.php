@@ -16,9 +16,17 @@ class VotetopicController extends Controller
         $value = $request->value;
         $vote = TopicVote::where('topic_id', $topic_id)->where('user_id', $user_id)->first();
         if($vote){
-            $vote->update([
-                'value' => $value
-            ]);
+            if($vote->value == $value){
+                $vote->delete();
+                return response()->json([
+                    'message' => 'Vote removed successfully'
+                ]);
+            } else{
+                $vote->update([
+                    'value' => $value
+                ]);
+            }
+           
         }else{
             TopicVote::create([
                 'topic_id' => $topic_id,
