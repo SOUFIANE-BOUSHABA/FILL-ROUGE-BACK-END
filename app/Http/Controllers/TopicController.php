@@ -51,6 +51,12 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
         $topic->delete();
+        if($topic->image_url){
+            $fileName = public_path('uploads/') . $topic->image_url;
+            if (file_exists($fileName)) {
+                unlink($fileName);
+            }
+        }
         return response()->json(null, 204);
     }
 
