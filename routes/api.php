@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TopicController;
@@ -70,4 +71,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/comments/{id}', [CommentController::class, 'show']);
     Route::post('/commentUpdate/{id}', [CommentController::class, 'update']);
     
+
+    // Routes for CommentVoteController
+    Route::post('/commentTopic', [CommentVoteController::class, 'voteComment']);
 });  

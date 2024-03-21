@@ -1,19 +1,18 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class CommentVote extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'topic_id',
-        'text',
+        'comment_id',
+        'value', 
     ];
 
     public function user()
@@ -21,12 +20,8 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function topic()
+    public function comment()
     {
-        return $this->belongsTo(Topic::class);
-    }
-
-    public function commentVotes(){
-        return $this->hasMany(CommentVote::class);
+        return $this->belongsTo(Comment::class);
     }
 }
