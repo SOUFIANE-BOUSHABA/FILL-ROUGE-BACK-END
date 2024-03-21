@@ -108,5 +108,23 @@ class TopicController extends Controller
             ]);
         } 
     
-    
+
+        
+        public function getTopicByIdForComments($id)
+        {
+            $topic = Topic::with('tags', 'user', 'topicVotes' , 'comments' , 'comments.user')->find($id);
+        
+            if ($topic == null) {
+                return response()->json(['error' => 'Topic not found'], 404);
+            }
+        
+            $topic->total_votes = $topic->topicVotes->sum('value');
+        
+            return response()->json([
+                'topic' => $topic,
+                'user_id' => auth()->user()->id
+            ]);
+        }
+        
+        
 }

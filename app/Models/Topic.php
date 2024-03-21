@@ -36,4 +36,9 @@ class Topic extends Model
     {
         return $this->hasMany(TopicVote::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

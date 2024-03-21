@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TopicController;
@@ -55,10 +56,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/topics', [TopicController::class, 'storeTopic']);
     Route::get('/topics', [TopicController::class, 'index']);
     Route::get('/getTopicById/{id}', [TopicController::class, 'getTopicById']);
+    Route::get('/commentsTopic/{id}', [TopicController::class, 'getTopicByIdForComments']);
+
     Route::delete('/topics/{id}', [TopicController::class, 'destroy']);
     Route::post('/topics/{id}', [TopicController::class, 'update']);
 
     // Routes for VotetopicController
     Route::post('/voteTopic', [VotetopicController::class, 'voteTopic']);
+
+    // Routes for CommentController
+    Route::post('/comments', [CommentController::class, 'store']);
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
     
 });  
