@@ -36,4 +36,24 @@ class CommentController extends Controller
         $comment->delete();
         return response()->json(null, 204);
     }
+
+    public function show($id)
+    {
+        $comment = Comment::findOrFail($id);
+        return response()->json(['comment' => $comment], 200);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'text' => ['required', 'string'],
+        ]);
+
+        $comment = Comment::findOrFail($id);
+        $comment->update([
+            'text' => $request->text,
+        ]);
+
+        return response()->json($comment, 200);
+    }
 }
