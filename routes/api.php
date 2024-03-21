@@ -70,6 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
     Route::get('/comments/{id}', [CommentController::class, 'show']);
     Route::post('/commentUpdate/{id}', [CommentController::class, 'update']);
+    Route::post('/validerComment' ,[CommentController::class, 'vliderComment']);
     
 
     // Routes for CommentVoteController

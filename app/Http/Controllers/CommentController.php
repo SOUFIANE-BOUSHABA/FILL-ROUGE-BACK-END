@@ -56,4 +56,17 @@ class CommentController extends Controller
 
         return response()->json($comment, 200);
     }
+
+
+    public  function vliderComment(Request $request){
+        $request->validate([
+            'comment_id' => 'required',
+        ]);
+        $comment = Comment::findOrFail($request->comment_id);
+        $comment->update([
+            'validation' => !$comment->validation,
+        ]);
+
+        return response()->json($comment, 200);
+    }
 }

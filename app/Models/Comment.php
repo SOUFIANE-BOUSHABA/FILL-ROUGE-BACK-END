@@ -14,6 +14,7 @@ class Comment extends Model
         'user_id',
         'topic_id',
         'text',
+        'validation',
     ];
 
     public function user()

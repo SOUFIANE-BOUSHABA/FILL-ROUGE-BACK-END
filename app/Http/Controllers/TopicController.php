@@ -112,13 +112,17 @@ class TopicController extends Controller
         
         public function getTopicByIdForComments($id)
         {
-            $topic = Topic::with('tags', 'user', 'topicVotes' , 'comments' , 'comments.user')->find($id);
+            $topic = Topic::with('tags', 'user', 'topicVotes' , 'comments' , 'comments.user', 'comments.commentVotes')->find($id);
         
             if ($topic == null) {
                 return response()->json(['error' => 'Topic not found'], 404);
             }
         
             $topic->total_votes = $topic->topicVotes->sum('value');
+
+            $topic->comments->each(function ($comment) {
+                $comment->total_votes_comments = $comment->commentVotes->sum('value');
+            });
         
             return response()->json([
                 'topic' => $topic,
