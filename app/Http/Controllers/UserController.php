@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -70,4 +72,33 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User details updated successfully']);
     }
+
+
+
+
+    public function getTopicForUser($id)
+    {
+        $data = Topic::with('tags', 'user', 'topicVotes')->where('user_id', $id)->get();
+        
+        $data->each(function ($topic) {
+            $topic->total_votes = $topic->topicVotes->sum('value');
+        });
+    
+        return response()->json([
+            'topics' => $data,
+        ]);
+    }
+
+    public function getCommentsForUser($id){
+        $data = Comment::with( 'commentVotes')->where('user_id', $id)->get();
+        
+        $data->each(function ($comment) {
+            $comment->total_votes = $comment->commentVotes->sum('value');
+        });
+    
+        return response()->json([
+            'comments' => $data,
+        ]);
+    }
+   
 }

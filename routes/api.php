@@ -51,6 +51,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/user/update',  [UserController::class, 'update']);
 
+    Route::get('/user/{id}/posts', [UserController::class, 'getTopicForUser']);
+    Route::get('/user/{id}/comments', [UserController::class, 'getCommentsForUser']);
+
 
     // Routes for RoleController
     Route::get('roles', [RoleController::class, 'index']);
