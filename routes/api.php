@@ -49,6 +49,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('users/{id}/block', [UserController::class, 'blockUser']);
     Route::put('users/{id}/role', [UserController::class, 'updateUserRole']);
 
+    Route::post('/user/update',  [UserController::class, 'update']);
+
+
     // Routes for RoleController
     Route::get('roles', [RoleController::class, 'index']);
 
